@@ -3,71 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Loja Virtual</title>
-    <script>
 
-        function inserirProduto() {
-            let objProduto = document.getElementById("objProduto");
-            let msg = validarProduto(objProduto);
-            if (msg == "") {
-                let xmlHttp = new XMLHttpRequest();
-                xmlHttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        //let obj = JSON.parse(this.responseText);
-                        document.getElementById("resposta").innerHTML = this.responseText;  //obj.value;
-                    }
-                }
-                xmlHttp.open("GET", "https://localhost/JaperiBanco/inserirProduto.php?codDeBarra=" + objProduto.codDeBarra.value
-                    + "&nome=" + objProduto.nome.value + "&fabricante=" + objProduto.fabricante.value +  "&categoria=" +
-                    objProduto.categoria.value + "&tipoDeProduto=" + objProduto.tipoDeProduto.value + "&precoDeVenda=" + objProduto.precoDeVenda.value
-                    + "&quantEmEstoque=" + objProduto.quantEmEstoque.value+ "&pesoEmGramas=" + objProduto.pesoEmGramas.value
-                    + "&descLinkDaImagem=" + objProduto.descLinkDaImagem.value+ "&dataDaInclusao=" + objProduto.dataDaInclusao.value
-                    + "&Status=" + objProduto.Status.value, true);
-                xmlHttp.send();
-                console.log("requisição enviada");
-            } else{
-               document.getElementById("resposta").innerHTML = msg;
-            }
-
-        }
-        function validarProduto(produtos) {
-            let objValidForm = document.getElementById("formProdutos");
-            let nome = objValidForm.nome.value;
-            let codDeBarra = objValidForm.codDeBarra.value;
-            let msg2 = "";
-
-            if (nome ===""){
-                msg2 = "Preencha o campo nome. <br>";
-                alert(msg2);
-            }
-          //  if (!TestaCodDeBarras(codDeBarra)) {
-          //      msg2 = msg2 + "codDeBarra Invalido. <br>";
-          //      alert(msg2);
-          //  }
-
-        }
-
-
-        function TestaCodDeBarras(strcodDeBarra) {
-            var Soma;
-            var Resto;
-            Soma = 0;
-            if (strcodDeBarra == "00000000000") return false;
-
-            for (i=1; i<=9; i++) Soma = Soma + parseInt(strcodDeBarra.substring(i-1, i)) * (11 - i);
-            Resto = (Soma * 10) % 11;
-
-            if ((Resto == 10) || (Resto == 11))  Resto = 0;
-            if (Resto != parseInt(strcodDeBarra.substring(9, 10)) ) return false;
-
-            Soma = 0;
-            for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strcodDeBarra.substring(i-1, i)) * (12 - i);
-            Resto = (Soma * 10) % 11;
-
-            if ((Resto == 10) || (Resto == 11))  Resto = 0;
-            if (Resto != parseInt(strcodDeBarra.substring(10, 11) ) ) return false;
-            return true;
-        }
-    </script>
 </head>
 <body>
 <h3>Produtos</h3>
@@ -75,7 +11,7 @@
 <form action="" method="post" name="inserirProduto" id="inserirProduto">
 
     codigo de barras: <input type="text" name="codDeBarra"> <br><br>
-    Nome: <input type="text" name="nome"> <br><br>
+    Nome: <input type="text" name="nome" id ="nome"> <br><br>
     fabricante: <input type="text" name="fabricante"> <br><br>
     categoria: <input type="text" name="categoria"> <br><br>
     tipo de produto: <input type="text" name="tipoDeProduto"> <br><br>
@@ -87,6 +23,96 @@
     Status: <input type="text" name="Status"> <br><br>
 
     <input type="button" name="op" value="inserirProduto" onclick="inserirProduto()">
+    <input type="button" name="op" value="thiago" onclick="thiago()">
 </form>
 </body>
 </html>
+<script>
+function thiago(){
+    let objProduto = document.getElementById("inserirProduto");
+    let msg = validarProduto(objProduto);
+    if (msg == "inserirProduto") {
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                //let obj = JSON.parse(this.responseText);
+                document.getElementById("resposta").innerHTML = this.responseText;  //obj.value;
+            }
+        }
+        xmlHttp.open("GET", "https://localhost/JaperiBanco/inserirProduto.php?codDeBarra=" + objProduto.codDeBarra.value
+            + "&nome=" + objProduto.nome.value + "&fabricante=" + objProduto.fabricante.value +  "&categoria=" +
+            objProduto.categoria.value + "&tipoDeProduto=" + objProduto.tipoDeProduto.value + "&precoDeVenda=" + objProduto.precoDeVenda.value
+            + "&quantEmEstoque=" + objProduto.quantEmEstoque.value+ "&pesoEmGramas=" + objProduto.pesoEmGramas.value
+            + "&descLinkDaImagem=" + objProduto.descLinkDaImagem.value+ "&dataDaInclusao=" + objProduto.dataDaInclusao.value
+            + "&Status=" + objProduto.Status.value, true);
+        xmlHttp.send();
+        console.log("requisição enviada");
+    } else{
+        document.getElementById("resposta").innerHTML = msg;
+    }
+
+}
+    function inserirProduto() {
+        let objProduto = document.getElementById("objProduto");
+        let msg = validarProduto(objProduto);
+        if (msg == "") {
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    //let obj = JSON.parse(this.responseText);
+                    document.getElementById("resposta").innerHTML = this.responseText;  //obj.value;
+                }
+            }
+            xmlHttp.open("GET", "https://localhost/JaperiBanco/inserirProduto.php?codDeBarra=" + objProduto.codDeBarra.value
+                + "&nome=" + objProduto.nome.value + "&fabricante=" + objProduto.fabricante.value +  "&categoria=" +
+                objProduto.categoria.value + "&tipoDeProduto=" + objProduto.tipoDeProduto.value + "&precoDeVenda=" + objProduto.precoDeVenda.value
+                + "&quantEmEstoque=" + objProduto.quantEmEstoque.value+ "&pesoEmGramas=" + objProduto.pesoEmGramas.value
+                + "&descLinkDaImagem=" + objProduto.descLinkDaImagem.value+ "&dataDaInclusao=" + objProduto.dataDaInclusao.value
+                + "&Status=" + objProduto.Status.value, true);
+            xmlHttp.send();
+            console.log("requisição enviada");
+        } else{
+            document.getElementById("resposta").innerHTML = this.responseText;
+        }
+
+    }
+    function validarProduto(produtos) {
+    //debugger;
+        let objValidForm = document.getElementById("inserirProduto");
+        let nome = objValidForm.nome.value;
+        let codDeBarra = objValidForm.codDeBarra.value;
+        let msg2 = "";
+
+        if (nome ===""){
+            msg2 = "Preencha o campo nome. <br>";
+            alert(msg2);
+        }
+        //  if (!TestaCodDeBarras(codDeBarra)) {
+        //      msg2 = msg2 + "codDeBarra Invalido. <br>";
+        //      alert(msg2);
+        //  }
+
+    }
+
+
+    function TestaCodDeBarras(strcodDeBarra) {
+        var Soma;
+        var Resto;
+        Soma = 0;
+        if (strcodDeBarra == "00000000000") return false;
+
+        for (i=1; i<=9; i++) Soma = Soma + parseInt(strcodDeBarra.substring(i-1, i)) * (11 - i);
+        Resto = (Soma * 10) % 11;
+
+        if ((Resto == 10) || (Resto == 11))  Resto = 0;
+        if (Resto != parseInt(strcodDeBarra.substring(9, 10)) ) return false;
+
+        Soma = 0;
+        for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strcodDeBarra.substring(i-1, i)) * (12 - i);
+        Resto = (Soma * 10) % 11;
+
+        if ((Resto == 10) || (Resto == 11))  Resto = 0;
+        if (Resto != parseInt(strcodDeBarra.substring(10, 11) ) ) return false;
+        return true;
+    }
+</script>
